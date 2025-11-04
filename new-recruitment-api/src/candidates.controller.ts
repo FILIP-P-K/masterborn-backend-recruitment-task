@@ -49,7 +49,6 @@ export class CandidatesController {
     }
 
     async create(req: Request, res: Response) {
-        console.log('halo', req.body)
         if (!req.body) {
             res.status(400).json({ message: 'No request body'});
             return;
@@ -77,7 +76,7 @@ export class CandidatesController {
                 consentDate
             ) 
             VALUES 
-            (?, ?, ?, ?, ?, ?, ?, ?)`, 
+            (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
             [firstName, lastName, email, phone, experienceYears, notes, status, jobOfferId, consentDate]
         );
 
@@ -89,7 +88,7 @@ export class CandidatesController {
         const errors = []
         for (let attempt = 1; attempt <= 3; attempt++) {
             try {
-                const response = await fetch('http://legacy:4000/candidates', {
+                const response = await fetch('http://legacy-api:4040/candidates', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -122,6 +121,7 @@ export class CandidatesController {
                     }
                 });
 
+                return;
             } catch (err) {
                 errors.push(err)
             }
@@ -175,7 +175,7 @@ export class CandidatesController {
             errors.push('Phone is required');
         }
 
-        if (candidate.experienceYears !== undefined && candidate.experienceYears !== null) {
+        if (candidate.experienceYears == undefined || candidate.experienceYears == null) {
             errors.push('experienceYears is required');
         }
 
@@ -183,7 +183,7 @@ export class CandidatesController {
             errors.push('status is required');
         }
 
-        if (candidate.jobOfferId !== undefined && candidate.jobOfferId !== null) {
+        if (candidate.jobOfferId == undefined || candidate.jobOfferId == null) {
             errors.push('jobOfferId is required');
         }
 

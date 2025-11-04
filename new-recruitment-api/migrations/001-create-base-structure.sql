@@ -18,10 +18,11 @@ CREATE TABLE JobOffer (
 
 CREATE TABLE Candidate (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    firstName TEXT NOT NULL,
+    lastName TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
     phone TEXT,
-    experience INTEGER NOT NULL,
+    experienceYears INTEGER NOT NULL,
     notes TEXT,
     status TEXT NOT NULL,
     recruiter_id INTEGER,
